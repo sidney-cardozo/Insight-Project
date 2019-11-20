@@ -1,0 +1,14 @@
+<!-- items.html -->
+{% extends "layout.html" %}
+
+{% block content %}
+
+<h1> Your Items</h1>
+  {% for item in items %}
+    <ul id="item.username">
+      <li>Name: {{ item.name }}</li>
+      <li>Quantity: {{ item.quantity }}</li>
+      <li>Description: {{ item.description }}</li>
+    </ul>
+  {% endfor %}
+{% endblock %}

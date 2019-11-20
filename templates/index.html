@@ -1,14 +1,40 @@
-<!DOCTYPE html>
-<html lang="en">
-    <body>
-        <h1> Welcome! </h1>
-        <h2> Please enter items that you would like to sell? </h2>
-        <form method="POST" action="/">
-            {{ form.csrf_token }}
-            {{ form.name.label }} {{ form.name(size=20) }}
-            {{ form.quantity.label }} {{ form.quantity(size=4) }}
-            {{ form.description.label }} {{ form.description(size=4) }}
-            <input type="submit" value="Enter Item">
-        </form>
-    </body>
-</html>
+<!-- index.html -->
+{% extends 'layout.html' %}
+
+{% block content %}
+<h1> Welcome! </h1>
+<div class="formwrapper">
+    <h2> Please enter items that you would like to sell? </h2>
+    <form method="POST" action="/">
+        {{ form.csrf_token }}
+        <div class="form-field">{{ form.name.label }} {{ form.name(size=20) }}
+                {% if form.name.errors %}
+                  <ul class="errors">
+                    {% for error in form.name.errors %}
+                      <li>{{ error }}</li>
+                    {% endfor %}
+                  </ul>
+                {% endif %}
+              </div>
+              <div class="form-field">{{ form.quantity.label }} {{ form.quantity(size=4) }}
+                {% if form.quantity.errors %}
+                  <ul class="errors">
+                    {% for error in form.quantity.errors %}
+                      <li>{{ error }}</li>
+                    {% endfor %}
+                  </ul>
+                {% endif %}
+              </div>
+              <div class="form-field">{{ form.description.label }} {{ form.description(size=4) }}
+                {% if form.description.errors %}
+                  <ul class="errors">
+                    {% for error in form.description.errors %}
+                      <li>{{ error }}</li>
+                    {% endfor %}
+                  </ul>
+                {% endif %}
+              </div>
+        <input type="submit" value="Enter Item">
+    </form>
+</div>
+{% endblock %}

@@ -1,6 +1,7 @@
 import datetime
 import os
 
+
 from flask import Flask, render_template, redirect, url_for
 from forms import ItemForm
 from models import Items
@@ -19,15 +20,16 @@ def add_item():
         return redirect(url_for('success'))
     return render_template('index.html', form=form)
 
-@app.route("/success")
+@app.route("/items")
 def success():
-    results = []
- 
+    items_in_db = []
     qry = db_session.query(Items)
-    results = qry.all()
+    items_in_db= qry.all()
+    if len(items_in_db) != 0:
+        return render_template('items.html', items=items_in_db, title='Your Items') # JSON response or render 
+    else: 
+        return render_template('index.html', form=form)
 
-    return str(results)
-  
 
 if __name__ == '__main__':
-    app.run(host='0.0.0.0')
+    app.run(host='0.0.0.0', port=5001)
